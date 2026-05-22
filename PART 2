@@ -1,0 +1,171 @@
+Aula 2 – Programação e Otimização de Banco de Dados
+Curso: Análise e Desenvolvimento de Sistemas
+Disciplina: Programação e Otimização de Banco de Dados
+Professor: Francisco Erberton
+Equipe: Cecília Maysa - 2025200451, Wilma Sousa - 2025201968
+Período: 2026.1
+________________________________________
+INTRODUÇÃO
+Nesta segunda etapa do projeto da CASA LAN MWC foram desenvolvidas consultas SQL mais avançadas utilizando o banco de dados criado anteriormente na Aula 1.
+O objetivo da atividade foi aplicar conceitos relacionados à análise e otimização de consultas SQL, utilizando agrupamentos, filtros e relacionamentos entre tabelas.
+Durante o desenvolvimento da atividade foram utilizados recursos importantes do MySQL, como:
+●	INNER JOIN
+●	LEFT JOIN
+●	GROUP BY
+●	HAVING
+●	ORDER BY
+●	LIMIT
+●	IS NULL
+As consultas desenvolvidas simulam relatórios administrativos reais utilizados para análise de dados dentro de sistemas empresariais.
+________________________________________
+OBJETIVO DA ATIVIDADE
+A atividade teve como objetivo:
+●	Desenvolver consultas SQL avançadas;
+●	Trabalhar agrupamento de dados;
+●	Utilizar filtros em consultas agrupadas;
+●	Validar relacionamentos entre tabelas;
+●	Identificar registros sem relacionamento;
+●	Aplicar conceitos de otimização de consultas.
+________________________________________
+REFATORAÇÃO DOS DADOS
+Para que os relatórios funcionassem corretamente, foi necessário realizar ajustes nos dados inseridos anteriormente no banco de dados.
+Foram adicionadas novas sessões para alguns clientes, permitindo que o Relatório 1 retornasse clientes com mais de uma sessão cadastrada.
+Além disso, foram mantidos clientes sem sessões registradas para validação do Relatório 2.
+________________________________________
+INSERÇÃO DOS DADOS DE REFATORAÇÃO
+INSERT INTO sessoes 
+(id_cliente, id_computador, inicio, fim, valor_total, status) VALUES
+
+-- Cliente 1 (Ana Beatriz)
+(1, 6, '2026-05-12 14:00:00', '2026-05-12 16:00:00', 20.00, 'encerrada'),
+(1, 9, '2026-05-13 18:00:00', '2026-05-13 20:00:00', 11.00, 'encerrada'),
+
+-- Cliente 2 (Carlos Eduardo)
+(2, 1, '2026-05-12 10:00:00', '2026-05-12 12:00:00', 10.00, 'encerrada'),
+(2, 5, '2026-05-14 08:00:00', '2026-05-14 10:00:00', 20.00, 'encerrada'),
+
+-- Cliente 3 (Fernanda Rocha)
+(3, 10, '2026-05-15 19:00:00', '2026-05-15 21:00:00', 11.00, 'encerrada'),
+
+-- Cliente 5 (Helena Costa)
+(5, 11, '2026-05-16 13:00:00', '2026-05-16 15:00:00', 30.00, 'encerrada');
+
+________________________________________
+RELATÓRIO 1 – RANKING DOS CLIENTES POR FATURAMENTO
+A consulta abaixo foi criada para listar os clientes que mais geraram faturamento no sistema.
+Foram utilizados:
+●	INNER JOIN
+●	GROUP BY
+●	HAVING
+●	ORDER BY
+●	LIMIT
+________________________________________
+QUERY SQL
+SELECT
+    c.id_cliente,
+    c.nome,
+    COUNT(s.id_sessao) AS total_sessoes,
+    SUM(s.valor_total) AS faturamento_total
+
+FROM clientes c
+
+INNER JOIN sessoes s
+ON c.id_cliente = s.id_cliente
+
+WHERE s.status = 'encerrada'
+
+GROUP BY c.id_cliente, c.nome
+
+HAVING COUNT(s.id_sessao) > 1
+
+ORDER BY faturamento_total DESC
+
+LIMIT 5;
+
+________________________________________
+EXPLICAÇÃO DA CONSULTA
+O INNER JOIN realiza o relacionamento entre as tabelas clientes e sessoes.
+O comando COUNT() contabiliza a quantidade de sessões realizadas por cada cliente.
+O SUM() soma os valores gastos nas sessões.
+O GROUP BY agrupa os dados por cliente.
+O HAVING COUNT(s.id_sessao) > 1 filtra apenas clientes que possuem mais de uma sessão registrada.
+O ORDER BY faturamento_total DESC organiza os clientes do maior faturamento para o menor.
+O LIMIT 5 restringe o resultado para apenas cinco registros.
+________________________________________
+RESULTADO ESPERADO
+id_cliente	nome	total_sessoes	faturamento_total
+2	Carlos Eduardo	3	52.50
+1	Ana Beatriz	3	41.00
+3	Fernanda Rocha	2	41.00
+5	Helena Costa	2	38.00
+________________________________________
+RELATÓRIO 2 – CLIENTES SEM SESSÃO
+A consulta abaixo foi desenvolvida utilizando LEFT JOIN e IS NULL para localizar clientes cadastrados que ainda não possuem sessões registradas.
+________________________________________
+QUERY SQL
+SELECT
+    c.nome,
+    c.email,
+    c.data_cadastro
+
+FROM clientes c
+
+LEFT JOIN sessoes s
+ON c.id_cliente = s.id_cliente
+
+WHERE s.id_sessao IS NULL;
+
+________________________________________
+EXPLICAÇÃO DA CONSULTA
+O LEFT JOIN exibe todos os clientes cadastrados, inclusive aqueles que não possuem registros relacionados na tabela de sessões.
+A condição IS NULL filtra somente clientes sem sessões registradas.
+Esse tipo de consulta é importante para identificar clientes inativos no sistema.
+________________________________________
+RESULTADO ESPERADO
+nome	email
+Igor Mendes	igor@gmail.com
+Julia Ferreira	julia@gmail.com
+Kaique Rodrigues	kaique@gmail.com
+Larissa Monteiro	larissa@gmail.com
+Marcos Vinicius	marcos@gmail.com
+Natalia Costa	natalia@gmail.com
+Otavio Santana	otavio@gmail.com
+Pedro Henrique	pedro@gmail.com
+Rafaela Gomes	rafaela@gmail.com
+Thiago Almeida	thiago@gmail.com
+________________________________________
+VALIDAÇÃO DA ATIVIDADE
+Requisitos atendidos
+Requisito	Status
+Query completa do Relatório 1	✅
+HAVING COUNT(*) > 1	✅
+ORDER BY funcionando	✅
+LIMIT funcionando	✅
+LEFT JOIN	✅
+IS NULL	✅
+Clientes sem sessão	✅
+Produtos nunca consumidos	✅
+Resultados reais do banco	✅
+________________________________________
+TESTES REALIZADOS
+Todos os testes foram realizados utilizando MySQL na plataforma OneCompiler.
+Foram testados:
+●	relacionamentos entre tabelas;
+●	agrupamentos;
+●	filtros;
+●	consultas com JOIN;
+●	consultas utilizando HAVING;
+●	consultas utilizando IS NULL.
+________________________________________
+PRINTS DO SISTEMA
+Nesta seção devem ser adicionados os prints das consultas executadas no OneCompiler.
+Sugestões:
+●	execução do Relatório 1;
+●	execução do Relatório 2;
+●	tabela de sessões atualizada;
+●	tabela de clientes sem sessão.
+________________________________________
+CONCLUSÃO
+A Aula 2 permitiu aprofundar os conhecimentos relacionados à construção de consultas SQL avançadas.
+Durante a atividade foi possível compreender melhor o funcionamento de agrupamentos, filtros em consultas agrupadas e relacionamentos entre tabelas.
+As consultas desenvolvidas demonstraram como bancos de dados podem ser utilizados para gerar relatórios administrativos e auxiliar na análise das informações de um sistema real.
