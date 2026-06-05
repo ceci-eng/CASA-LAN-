@@ -1,0 +1,89 @@
+DDL – CRIAÇÃO DAS TABELAS
+
+CREATE TABLE clientes (
+   id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+   nome VARCHAR(100) NOT NULL,
+   cpf VARCHAR(14) NOT NULL UNIQUE,
+   email VARCHAR(100) NOT NULL UNIQUE,
+   telefone VARCHAR(20),
+   data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+ 
+CREATE TABLE computadores (
+   id_computador INT AUTO_INCREMENT PRIMARY KEY,
+   nome VARCHAR(50) NOT NULL,
+   especificacoes VARCHAR(255),
+   status VARCHAR(10) DEFAULT 'livre',
+   preco_hora DECIMAL(6,2),
+   CHECK (status IN ('livre', 'ocupado'))
+);
+ 
+CREATE TABLE sessoes (
+   id_sessao INT AUTO_INCREMENT PRIMARY KEY,
+   id_cliente INT NOT NULL,
+   id_computador INT NOT NULL,
+   inicio DATETIME DEFAULT CURRENT_TIMESTAMP,
+   fim DATETIME,
+   valor_total DECIMAL(8,2),
+   status VARCHAR(10) DEFAULT 'aberta',
+ 
+   CHECK (status IN ('aberta', 'encerrada')),
+ 
+   FOREIGN KEY (id_cliente)
+   REFERENCES clientes(id_cliente),
+ 
+   FOREIGN KEY (id_computador)
+   REFERENCES computadores(id_computador)
+);
+ 
+CREATE TABLE produtos (
+   id_produto INT AUTO_INCREMENT PRIMARY KEY,
+   nome VARCHAR(100),
+   categoria VARCHAR(50),
+   preco DECIMAL(6,2),
+   estoque INT,
+   estoque_minimo INT
+);
+ 
+CREATE TABLE consumo (
+   id_consumo INT AUTO_INCREMENT PRIMARY KEY,
+   id_sessao INT,
+   id_produto INT,
+   quantidade INT,
+   subtotal DECIMAL(8,2),
+ 
+   FOREIGN KEY (id_sessao)
+   REFERENCES sessoes(id_sessao),
+ 
+   FOREIGN KEY (id_produto)
+   REFERENCES produtos(id_produto)
+);
+ 
+CREATE TABLE torneios (
+   id_torneio INT AUTO_INCREMENT PRIMARY KEY,
+   nome VARCHAR(100),
+   jogo VARCHAR(100),
+   data_torneio DATE,
+   premio DECIMAL(10,2)
+);
+CREATE TABLE inscricoes (
+   id_inscricao INT AUTO_INCREMENT PRIMARY KEY,
+   id_cliente INT,
+   id_torneio INT,
+   data_inscricao DATETIME DEFAULT CURRENT_TIMESTAMP,
+ 
+   FOREIGN KEY (id_cliente)
+   REFERENCES clientes(id_cliente),
+ 
+   FOREIGN KEY (id_torneio)
+   REFERENCES torneios(id_torneio)
+);
+ 
+CREATE TABLE audit_log (
+   id_log INT AUTO_INCREMENT PRIMARY KEY,
+   tabela_afetada VARCHAR(50),
+   acao VARCHAR(20),
+   data_evento DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+ 
+A tabela audit_log foi criada com a finalidade de registrar alterações realizadas no sistema, permitindo maior controle e acompanhamento das operações executadas no banco de dados.
