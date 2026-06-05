@@ -20,3 +20,4 @@ Além disso, o projeto busca aplicar na prática os conhecimentos adquiridos em 
 * O status das sessões deve ser controlado entre “aberta” e “encerrada”.
  
 
+Alunos: Wilma Sousa, Cecilia Maysa
