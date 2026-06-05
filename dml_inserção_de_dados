@@ -1,0 +1,89 @@
+DML – INSERÇÃO DE DADOS
+INSERT INTO clientes (nome, cpf, email, telefone) VALUES
+('Ana Beatriz Lima','101.111.111-01','ana@gmail.com','81990000001'),
+('Carlos Eduardo Silva','101.111.111-02','carlos@gmail.com','81990000002'),
+('Fernanda Rocha','101.111.111-03','fernanda@gmail.com','81990000003'),
+('Gabriel Souza','101.111.111-04','gabriel@gmail.com','81990000004'),
+('Helena Costa','101.111.111-05','helena@gmail.com','81990000005'),
+('Igor Mendes','101.111.111-06','igor@gmail.com','81990000006'),
+('Julia Ferreira','101.111.111-07','julia@gmail.com','81990000007'),
+('Kaique Rodrigues','101.111.111-08','kaique@gmail.com','81990000008'),
+('Larissa Monteiro','101.111.111-09','larissa@gmail.com','81990000009'),
+('Marcos Vinicius','101.111.111-10','marcos@gmail.com','81990000010'),
+('Natalia Costa','101.111.111-11','natalia@gmail.com','81990000011'),
+('Otavio Santana','101.111.111-12','otavio@gmail.com','81990000012'),
+('Pedro Henrique','101.111.111-13','pedro@gmail.com','81990000013'),
+('Rafaela Gomes','101.111.111-14','rafaela@gmail.com','81990000014'),
+('Thiago Almeida','101.111.111-15','thiago@gmail.com','81990000015');
+
+INSERT INTO computadores (nome, especificacoes, status, preco_hora) VALUES
+('MWC-ALPHA','i5 RTX 3060 16GB','livre',5.00),
+('MWC-BLACK','i5 RTX 3060 16GB','livre',5.00),
+('MWC-GHOST','Ryzen 7 RTX 4070 32GB','livre',7.50),
+('MWC-DRAGON','Ryzen 7 RTX 4070 32GB','ocupado',7.50),
+('MWC-TITAN','i7 RTX 4080 32GB','livre',10.00),
+('MWC-VORTEX','i7 RTX 4080 32GB','livre',10.00),
+('MWC-FLASH','GTX 1660 16GB','livre',4.00),
+('MWC-STORM','GTX 1660 16GB','ocupado',4.00),
+('MWC-LEGEND','RX 7600 16GB','livre',5.50),
+('MWC-PHOENIX','RX 7600 16GB','livre',5.50),
+('MWC-IMMORTAL','RTX 4090 64GB','livre',15.00),
+('MWC-NEXUS','RTX 4090 64GB','livre',15.00),
+('MWC-SHADOW','RTX 4080 32GB','ocupado',12.00),
+('MWC-ELITE','RTX 4080 32GB','livre',12.00),
+('MWC-STREAM','Streamer Setup RTX 4070','livre',9.00);
+
+INSERT INTO produtos (nome, categoria, preco, estoque, estoque_minimo) VALUES
+('Combo MWC Gamer','Lanche',25.00,20,5),
+('Energetico Nitro MWC','Energetico',15.00,25,5),
+('Pizza XP Boost','Lanche',30.00,10,2),
+('Hamburguer Boss Level','Lanche',22.00,15,3),
+('Coca-Cola 350ml','Bebida',5.00,50,10),
+('Agua Mineral','Bebida',3.00,80,20),
+('Monster Energy','Energetico',12.00,25,5),
+('Pringles Original','Snack',9.50,30,5),
+('Doritos Queijo','Snack',7.00,35,5),
+('Chocolate Lacta','Doce',6.00,30,5),
+('Mouse Gamer RGB','Acessorio',120.00,10,2),
+('Headset Pro MWC','Acessorio',250.00,8,2),
+('Mousepad XL','Acessorio',60.00,12,2),
+('Batata Frita','Lanche',14.00,20,5),
+('Cafe Expresso','Bebida',4.00,40,10);
+
+INSERT INTO torneios
+(nome, jogo, data_torneio, premio) VALUES
+('Campeonato CS2', 'Counter Strike 2', '2026-06-10', 1000.00),
+('Liga Valorant', 'Valorant', '2026-07-15', 1500.00),
+('MWC League of Legends', 'League of Legends', '2026-08-20', 2000.00),
+('FIFA Ultimate Cup', 'FIFA 26', '2026-09-05', 1200.00),
+('Free Fire Arena', 'Free Fire', '2026-10-12', 800.00);
+
+INSERT INTO sessoes
+(id_cliente, id_computador, inicio, fim, valor_total, status) VALUES
+
+(1, 1, '2026-05-10 13:00:00', '2026-05-10 15:00:00', 10.00, 'encerrada'),
+(2, 3, '2026-05-10 14:00:00', '2026-05-10 17:00:00', 22.50, 'encerrada'),
+(3, 5, '2026-05-10 15:30:00', '2026-05-10 18:30:00', 30.00, 'encerrada'),
+(4, 2, '2026-05-11 09:00:00', NULL, NULL, 'aberta'),
+(5, 7, '2026-05-11 10:00:00', '2026-05-11 12:00:00', 8.00, 'encerrada');
+
+INSERT INTO audit_log
+(tabela_afetada, acao, data_evento) VALUES
+
+('clientes', 'INSERT', '2026-05-10 09:00:00'),
+('clientes', 'UPDATE', '2026-05-10 09:10:00'),
+('computadores', 'INSERT', '2026-05-10 09:20:00'),
+('sessoes', 'INSERT', '2026-05-10 10:00:00'),
+('sessoes', 'UPDATE', '2026-05-10 12:00:00'),
+('produtos', 'INSERT', '2026-05-10 13:00:00'),
+('consumo', 'INSERT', '2026-05-10 13:20:00'),
+('torneios', 'INSERT', '2026-05-10 14:00:00'),
+('inscricoes', 'INSERT', '2026-05-10 15:00:00'),
+('clientes', 'DELETE', '2026-05-10 16:00:00'),
+('produtos', 'UPDATE', '2026-05-10 17:00:00'),
+('computadores', 'UPDATE', '2026-05-10 18:00:00'),
+('sessoes', 'DELETE', '2026-05-10 19:00:00'),
+('audit_log', 'INSERT', '2026-05-10 20:00:00'),
+('inscricoes', 'DELETE', '2026-05-10 21:00:00');
+
+Os registros acima representam exemplos de auditoria do sistema, permitindo acompanhar ações realizadas dentro do banco de dados
