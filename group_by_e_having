@@ -137,15 +137,15 @@ ________________________________________
 VALIDAÇÃO DA ATIVIDADE
 Requisitos atendidos
 Requisito	Status
-Query completa do Relatório 1	✅
-HAVING COUNT(*) > 1	✅
-ORDER BY funcionando	✅
-LIMIT funcionando	✅
-LEFT JOIN	✅
-IS NULL	✅
-Clientes sem sessão	✅
-Produtos nunca consumidos	✅
-Resultados reais do banco	✅
+Query completa do Relatório 1	
+HAVING COUNT(*) > 1	
+ORDER BY funcionando	
+LIMIT funcionando	
+LEFT JOIN	
+IS NULL	
+Clientes sem sessão	
+Produtos nunca consumidos	
+Resultados reais do banco	
 ________________________________________
 TESTES REALIZADOS
 Todos os testes foram realizados utilizando MySQL na plataforma OneCompiler.
